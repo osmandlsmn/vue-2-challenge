@@ -1,0 +1,23 @@
+<template>
+  <div class="space-y-4 w-full pr-5 border-r-2">
+    <StockItem v-for="(stock, index) in stocks" :key="index" :stock="stock" />
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+import { mapGetters } from "vuex";
+import StockItem from "./StockItem.vue";
+
+export default defineComponent({
+  name: "Stocks",
+  components: {
+    StockItem,
+  },
+  computed: {
+    ...mapGetters({
+      stocks: "getStocks",
+    }),
+  },
+});
+</script>
