@@ -1,6 +1,7 @@
 <template>
   <div class="w-full flex items-center justify-center">
-    <Pie class="max-w-[450px] max-h-[450px]" :data="getStatistics" />
+    <Pie v-if="stocks.length >= 1" class="max-w-[450px] max-h-[450px]" :data="getChartData" />
+    <Pie v-else class="max-w-[450px] max-h-[450px]" :data="placeholderData" />
   </div>
 </template>
 
@@ -19,17 +20,22 @@ export default defineComponent({
   },
   data() {
     return {
-      loaded: false,
-      chartData: {},
+      placeholderData: {
+        datasets: [
+          {
+            label: ["No stock."],
+            data: [100],
+            backgroundColor: "#F2EEE8",
+          },
+        ],
+      },
     };
   },
   computed: {
     ...mapGetters({
       stocks: "getStocks",
     }),
-    getStatistics() {
-      this.loaded = false;
-
+    getChartData() {
       this.chartData = {
         labels: [],
         datasets: [{ backgroundColor: ["#41B883", "#E46651", "#00D8FF", "#DD1B16"], data: [] }],
@@ -39,7 +45,6 @@ export default defineComponent({
         this.chartData?.labels.push(stock.symbol);
         this.chartData.datasets[0].data.push(stock.total);
       });
-      this.loaded = true;
 
       return this.chartData;
     },
