@@ -1,13 +1,20 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import Button from "@/components/UI/Button/index.vue";
+import { mapActions, mapGetters } from "vuex";
 
-export default defineComponent({
+export default defineComponent<{}, any>({
   name: "Actions",
   components: {
     Button,
   },
+  computed: {
+    ...mapGetters({
+      isLoading: "getLoading",
+    }),
+  },
   methods: {
+    ...mapActions(["refresh"]),
     openAddStackModal() {
       this.$modal.show("add-stock-modal");
     },
@@ -17,7 +24,7 @@ export default defineComponent({
 
 <template>
   <div class="space-x-5">
-    <Button @onClick="openAddStackModal" primary>Add Stock</Button>
-    <Button primary>Refresh</Button>
+    <Button :disabled="isLoading" @onClick="openAddStackModal" primary>Add Stock</Button>
+    <Button @onClick="refresh" primary>Refresh</Button>
   </div>
 </template>
