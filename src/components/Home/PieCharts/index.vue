@@ -4,8 +4,7 @@
   </div>
 </template>
 
-<script lang="ts">
-import type { Coin } from "@/types";
+<script>
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
@@ -31,14 +30,12 @@ export default defineComponent({
     getStatistics() {
       this.loaded = false;
 
-      console.log(this.chartData);
-
       this.chartData = {
         labels: [],
         datasets: [{ backgroundColor: ["#41B883", "#E46651", "#00D8FF", "#DD1B16"], data: [] }],
       };
 
-      this.stocks.map((stock: Coin) => {
+      this.stocks.map((stock) => {
         this.chartData?.labels.push(stock.symbol);
         this.chartData.datasets[0].data.push(stock.total);
       });
