@@ -12,6 +12,8 @@ const Stock: Module<StockState, {}> = {
   actions: {},
   mutations: {
     addStock(state, coin) {
+      const hasStock = state.stocks.find((stock) => coin.symbol === stock.symbol);
+      if (hasStock) return;
       state.stocks.push({ ...coin, total: coin.total ?? 1 });
     },
     updateStock(state, coin) {
