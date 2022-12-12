@@ -12,7 +12,7 @@ const Stock: Module<StockState, {}> = {
   actions: {},
   mutations: {
     addStock(state, coin) {
-      state.stocks.push(coin);
+      state.stocks.push({ ...coin, total: coin.total ?? 1 });
     },
     updateStock(state, coin) {
       const stockIndex = state.stocks.findIndex((item, index) => item.symbol === coin.symbol);
