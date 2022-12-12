@@ -1,15 +1,31 @@
 import type { Module } from "vuex";
 import type { Coin } from "@/types/index";
+import { getCoins } from "@/api/binance";
 
 interface StockState {
   stocks: Coin[];
+  isLoading: boolean;
 }
 
 const Stock: Module<StockState, {}> = {
   state: () => ({
+    isLoading: false,
     stocks: [],
   }),
-  actions: {},
+  actions: {
+    async refresh({ state, commit }) {
+      state.isLoading = true;
+
+      const { data } = await getCoins();
+      const updatedStocks: any = state.stocks.map((stock) => {
+        const coin = data.find((coin: Coin) => coin.symbol === stock.symbol);
+        if (coin) return { ...coin, total: stock.total };
+      });
+
+      state.isLoading = false;
+      state.stocks = updatedStocks;
+    },
+  },
   mutations: {
     addStock(state, coin) {
       const hasStock = state.stocks.find((stock) => coin.symbol === stock.symbol);
@@ -27,6 +43,9 @@ const Stock: Module<StockState, {}> = {
   getters: {
     getStocks(state) {
       return state.stocks;
+    },
+    getLoading(state) {
+      return state.isLoading;
     },
   },
 };
