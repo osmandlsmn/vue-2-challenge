@@ -1,17 +1,17 @@
 <template>
   <div class="w-full flex items-center justify-center">
-    <Pie v-if="stocks.length >= 1" class="max-w-[450px] max-h-[450px]" :data="getChartData" />
-    <Pie v-else class="max-w-[450px] max-h-[450px]" :data="placeholderData" />
+    <Pie v-if="stocks.length !== 0" class="max-w-[400px] max-h-[400px]" :data="getChartData" />
+    <Pie v-else class="max-w-[400px] max-h-[400px]" :data="placeholderData" />
   </div>
 </template>
 
 <script>
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Chart as ChartJS, ArcElement, Tooltip } from "chart.js";
 import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
 import { Pie } from "vue-chartjs";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip);
 
 export default defineComponent({
   name: "PieCharts",
@@ -23,7 +23,7 @@ export default defineComponent({
       placeholderData: {
         datasets: [
           {
-            label: ["No stock."],
+            label: ["No data."],
             data: [100],
             backgroundColor: "#F2EEE8",
           },
@@ -38,7 +38,7 @@ export default defineComponent({
     getChartData() {
       this.chartData = {
         labels: [],
-        datasets: [{ backgroundColor: ["#41B883", "#E46651", "#00D8FF", "#DD1B16"], data: [] }],
+        datasets: [{ backgroundColor: ["#00FFAB", "#14C38E", "#B8F1B0", "#E3FCBF"], data: [] }],
       };
 
       this.stocks.map((stock) => {
