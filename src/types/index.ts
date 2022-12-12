@@ -20,4 +20,6 @@ export interface Coin {
   firstId: number;
   lastId: number;
   count: number;
+  total: number;
+  stock: boolean;
 }
