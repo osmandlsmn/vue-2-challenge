@@ -22,7 +22,7 @@ export default defineComponent({
     <Actions />
     <hr class="mt-3 mb-3" />
     <div class="flex justify-between">
-      <Stocks class="grow-2" />
+      <Stocks />
       <PieCharts />
     </div>
   </div>
