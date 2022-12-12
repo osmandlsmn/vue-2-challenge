@@ -3,6 +3,7 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "Button",
+  inheritAttrs: false,
   props: {
     primary: Boolean,
     secondary: Boolean,
@@ -26,7 +27,11 @@ export default defineComponent({
 </script>
 
 <template>
-  <button :class="`font-medium rounded-lg text-sm px-5 py-2.5 text-center ${getVariant}`" @click="onClick">
+  <button
+    :class="`font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:opacity-50 disabled:cursor-no-drop ${getVariant}`"
+    @click="onClick"
+    v-bind="$attrs"
+  >
     <slot />
   </button>
 </template>
