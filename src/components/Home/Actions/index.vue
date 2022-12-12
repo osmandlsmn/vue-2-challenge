@@ -11,6 +11,7 @@ export default defineComponent<{}, any>({
   computed: {
     ...mapGetters({
       isLoading: "getLoading",
+      stocks: "getStocks",
     }),
   },
   methods: {
@@ -25,6 +26,6 @@ export default defineComponent<{}, any>({
 <template>
   <div class="space-x-5">
     <Button :disabled="isLoading" @onClick="openAddStackModal" primary>Add Stock</Button>
-    <Button @onClick="refresh" primary>Refresh</Button>
+    <Button :disabled="stocks.length < 1" @onClick="refresh" primary>Refresh</Button>
   </div>
 </template>
