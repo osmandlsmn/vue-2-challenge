@@ -91,7 +91,7 @@ export default defineComponent<{}, any>({
           <div class="flex flex-col overflow-x-auto no-scrollbar space-y-3 max-h-[500px]">
             <RecycleScroller class="scroller no-scrollbar" :items="filteredResults" :item-size="50" key-field="symbol" v-slot="{ item, index }">
               <div class="flex justify-between mb-5">
-                <h3 class="text-white font-bold">{{ item.symbol }} {{ item.lastPrice }}</h3>
+                <h3 class="text-white font-semibold">{{ item.symbol }} - {{ item.lastPrice }}</h3>
                 <div>
                   <div></div>
                   <div class="space-x-2">
