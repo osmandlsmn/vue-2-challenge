@@ -7,7 +7,7 @@ import Spinner from "@/components/Icons/Spinner.vue";
 import Button from "@/components/UI/Button/index.vue";
 import { useFuse } from "@vueuse/integrations/useFuse";
 
-export default defineComponent({
+export default defineComponent<{}, any>({
   name: "AddStockModal",
   components: {
     Input,
@@ -29,7 +29,7 @@ export default defineComponent({
       const coinResults = this.search ? results.value.map(({ item }) => item) : this.coins;
 
       const stocks = this.$store.getters.getStocks;
-      const stockResults = this.coins.map((coin: Coin, index) => {
+      const stockResults = this.coins.map((coin: Coin) => {
         const stock = stocks.find((x: any) => x.symbol === coin.symbol);
         if (stock) {
           coin.stock = true;
@@ -49,12 +49,10 @@ export default defineComponent({
       this.$data.coins = data;
     },
     addStock(coin: Coin, index: number) {
-      console.log(coin);
-
       this.$store.commit("addStock", coin);
     },
     removeStock(coin: Coin) {
-      this.coins = this.coins.filter((item) => item.symbol !== coin.symbol);
+      this.coins = this.coins.filter((item: Coin) => item.symbol !== coin.symbol);
       this.$store.commit("removeStock", coin);
     },
     updateStock(coin: Coin) {
